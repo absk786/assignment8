@@ -1,10 +1,11 @@
 // this will bring all the functions together 
-// const Manager = require('./lib/Manager')
-const Employee = require('./lib/Employee')
-// const Engineer = require('./lib/Engineer')
-// const Intern = require('./lib/Intern')
 const fs = require('fs');
 const inquirer = require('inquirer');
+
+let managerArr = [];
+let employeeArr = [];
+let internArr = [];
+let engineerArr = [];
 
 const promptUser = () => {    
         return inquirer.prompt([
@@ -12,7 +13,7 @@ const promptUser = () => {
                 type: 'checkbox',
                 name: 'Team',
                 message: 'Which team member do you want to add nex',
-                choices: ['Employee', 'Engineer', 'Intern', 'None']
+                choices: ['Manager','Employee', 'Engineer', 'Intern', 'None']
               },
     ]);
     };
@@ -20,15 +21,35 @@ const promptUser = () => {
     .then(function (answers) {
           if (answers.Team[0] === "Employee") {
             console.log("employee selected")
-            Employee();
+            promptEmp()
+            .then(function (empInfo) {
+                employeeArr.push(empInfo)
+                    console.log(employeeArr)
+                })
         }
         else if (answers.Team[0] === "Intern") {
             console.log("intern selected")
-            // Intern();
+            promptIntern()
+            .then(function (internInfo) {
+                internArr.push(internInfo)
+                console.log(internArr)
+            })
+        }
+        else if (answers.Team[0] === "Manager") {
+            console.log("intern selected")
+              promptManager()
+              .then(function (managerInfo) {
+                  managerArr.push(managerInfo)
+                 console.log(managerArr)
+             })
         }
         else if (answers.Team[0] === "Engineer") {
             console.log("engineer selected")
-            // Engineer();
+            promptEng()
+            .then(function (engInfo) {
+                engineerArr.push(engInfo)
+                console.log(engineerArr)
+            })
         }
         else if (answers.Team[0] === "None") {
             // fs.writeFile("Index.html", generatePage(empInfo, engInfo, managerInfo, internInfo), err =>{
@@ -43,45 +64,239 @@ const promptUser = () => {
     // console.log("HTML created")
     // })
 
-//     const generatePage = (empInfo, engInfo, managerInfo, internInfo) => `
-//     // this is where the HTML layout will go.
-//     //     <!DOCTYPE html>
-// // <html lang="en">
-// /* <head>
-//     <meta charset="UTF-8">
-//     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-//     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-//     <title>Document</title>
-// </head>
-// <body>
-
-//     <div class="manager">
-//         <p class="manager">${managerInfo.managerName}</p>
-//         <p class="email">${managerInfo.managerEmail}</p>
-//         <p class="github">${managerInfo.managerGitHub}</p>
-//     </div>
-
-//     <div class="intern">
-//         <p class="name">${internInfo.internName}</p>
-//         <p class="email">${internInfo.internEmail}</p>
-//         <p class="github">${internInfo.internGitHub}</p>
-//     </div>
-    
-//     <div class="engineer">
-//         <p class="name">${engInfo.engName}</p>
-//         <p class="email">${engInfo.engEmail}</p>
-//         <p class="github">${engInfo.engGitHub}</p>
-//     </div>
-
-//     <div class="employee">
-//         <p class="name">${empInfo.empname}</p>
-//         <p class="email">${empInfo.empEmail}</p>
-//         <p class="github">${empInfo.empGitHub}</p>
-//     </div>
-
-// </body>
-// </html>
-//     "
-//      */
-//     `;
-    
+    const promptManager = () => {    
+        return inquirer.prompt([
+    //user name question
+            {
+                // what type of question is this? input means they will input something
+                type: 'input',
+                // where is the response being stored? as name = bob
+                name: 'managerName',
+                // what is the question?
+                message: 'What is the managers name (Required)',
+                // this will set the validation of the message making it a required field
+                validate: nameInput => {
+                    if (nameInput) {
+                        return true;
+                    }
+                    else {
+                        console.log("Please enter your managers name")
+                        return false;
+                    }
+                } 
+            },
+            {
+                // what type of question is this? input means they will input something
+                type: 'input',
+                // where is the response being stored? as name = bob
+                name: 'managerEmail',
+                // what is the question?
+                message: 'What is the managers email (Required)',
+                // this will set the validation of the message making it a required field
+                validate: nameInput => {
+                    if (nameInput) {
+                        return true;
+                    }
+                    else {
+                        console.log("Please enter your managers email")
+                        return false;
+                    }
+                } 
+            },
+            {
+                // what type of question is this? input means they will input something
+                type: 'input',
+                // where is the response being stored? as name = bob
+                name: 'managerGitHub',
+                // what is the question?
+                message: 'What is the managers GitHub Username (Required)',
+                // this will set the validation of the message making it a required field
+                validate: nameInput => {
+                    if (nameInput) {
+                        return true;
+                    }
+                    else {
+                        console.log("Please enter your managers github name")
+                        return false;
+                    }
+                } 
+            },
+    ]);
+    };
+    const promptEmp = () => {    
+        return inquirer.prompt([
+    //user name question
+            {
+                // what type of question is this? input means they will input something
+                type: 'input',
+                // where is the response being stored? as name = bob
+                name: 'empName',
+                // what is the question?
+                message: 'What is the employee name (Required)',
+                // this will set the validation of the message making it a required field
+                validate: nameInput => {
+                    if (nameInput) {
+                        return true;
+                    }
+                    else {
+                        console.log("Please enter your employee name")
+                        return false;
+                    }
+                } 
+            },
+            {
+                // what type of question is this? input means they will input something
+                type: 'input',
+                // where is the response being stored? as name = bob
+                name: 'empEmail',
+                // what is the question?
+                message: 'What is the employee email (Required)',
+                // this will set the validation of the message making it a required field
+                validate: nameInput => {
+                    if (nameInput) {
+                        return true;
+                    }
+                    else {
+                        console.log("Please enter your employee email")
+                        return false;
+                    }
+                } 
+            },
+            {
+                // what type of question is this? input means they will input something
+                type: 'input',
+                // where is the response being stored? as name = bob
+                name: 'empGitHub',
+                // what is the question?
+                message: 'What is the employee GitHub Username (Required)',
+                // this will set the validation of the message making it a required field
+                validate: nameInput => {
+                    if (nameInput) {
+                        return true;
+                    }
+                    else {
+                        console.log("Please enter your employee github name")
+                        return false;
+                    }
+                } 
+            }
+    ]);
+    };
+    const promptEng = () => {    
+        return inquirer.prompt([
+    //user name question
+            {
+                // what type of question is this? input means they will input something
+                type: 'input',
+                // where is the response being stored? as name = bob
+                name: 'engName',
+                // what is the question?
+                message: 'What is the engineers name (Required)',
+                // this will set the validation of the message making it a required field
+                validate: nameInput => {
+                    if (nameInput) {
+                        return true;
+                    }
+                    else {
+                        console.log("Please enter your engineers name")
+                        return false;
+                    }
+                } 
+            },
+            {
+                // what type of question is this? input means they will input something
+                type: 'input',
+                // where is the response being stored? as name = bob
+                name: 'engEmail',
+                // what is the question?
+                message: 'What is the engineers email (Required)',
+                // this will set the validation of the message making it a required field
+                validate: nameInput => {
+                    if (nameInput) {
+                        return true;
+                    }
+                    else {
+                        console.log("Please enter your engineers email")
+                        return false;
+                    }
+                } 
+            },
+            {
+                // what type of question is this? input means they will input something
+                type: 'input',
+                // where is the response being stored? as name = bob
+                name: 'engGitHub',
+                // what is the question?
+                message: 'What is the engineers GitHub Username (Required)',
+                // this will set the validation of the message making it a required field
+                validate: nameInput => {
+                    if (nameInput) {
+                        return true;
+                    }
+                    else {
+                        console.log("Please enter your engineers github name")
+                        return false;
+                    }
+                } 
+            }
+    ]);
+    };
+    const promptIntern = () => {    
+        return inquirer.prompt([
+    //user name question
+            {
+                // what type of question is this? input means they will input something
+                type: 'input',
+                // where is the response being stored? as name = bob
+                name: 'internName',
+                // what is the question?
+                message: 'What is the intern name (Required)',
+                // this will set the validation of the message making it a required field
+                validate: nameInput => {
+                    if (nameInput) {
+                        return true;
+                    }
+                    else {
+                        console.log("Please enter your intern name")
+                        return false;
+                    }
+                } 
+            },
+            {
+                // what type of question is this? input means they will input something
+                type: 'input',
+                // where is the response being stored? as name = bob
+                name: 'internEmail',
+                // what is the question?
+                message: 'What is the interns email (Required)',
+                // this will set the validation of the message making it a required field
+                validate: nameInput => {
+                    if (nameInput) {
+                        return true;
+                    }
+                    else {
+                        console.log("Please enter your interns email")
+                        return false;
+                    }
+                } 
+            },
+            {
+                // what type of question is this? input means they will input something
+                type: 'input',
+                // where is the response being stored? as name = bob
+                name: 'internGitHub',
+                // what is the question?
+                message: 'What is the interns GitHub Username (Required)',
+                // this will set the validation of the message making it a required field
+                validate: nameInput => {
+                    if (nameInput) {
+                        return true;
+                    }
+                    else {
+                        console.log("Please enter your interns github name")
+                        return false;
+                    }
+                } 
+            }
+    ]);
+    };
