@@ -2,6 +2,8 @@
 const fs = require('fs');
 const inquirer = require('inquirer');
 const Manager = require('./lib/Manager')
+const Intern = require('./lib/Intern')
+const Engineer = require('./lib/Engineer')
 const promptManager = require('./lib/Manager')
 const promptIntern = require('./lib/Intern')
 const promptEng = require('./lib/Engineer')
@@ -28,9 +30,9 @@ function runApp  () {
                 promptManager()
                     .then(function (managerInfo) {
                         console.log(managerInfo)
-                        // const manager = new Manager(managerInfo.managerName, managerInfo.managerId, managerInfo.managerEmail, managerInfo.managerOfficeNumber)
-                        // teamInfo.push(manager)
-                        // console.log(manager)
+                        const manager = new Manager(managerInfo.managerName, managerInfo.managerId, managerInfo.managerEmail, managerInfo.managerOfficeNumber)
+                        teamInfo.push(manager)
+                        console.log(teamInfo)
                         runApp ()
                     })
             }
@@ -39,6 +41,7 @@ function runApp  () {
                 promptEng()
                     .then(function (engInfo) {
                         console.log(engInfo)
+                        const engineer = new Engineer(engInfo.engName, engInfo.engId, engInfo.engEmail, engInfo.engGitHub)
                         runApp ()
                     })
             }
@@ -47,6 +50,7 @@ function runApp  () {
                 promptIntern()
                     .then(function (internInfo) {
                         console.log(internInfo)
+                        const intern = new Intern(internInfo.internName, internInfo.internId, internInfo.internEmail, internInfo.internSchool)
                         runApp ()
                     })
             }
