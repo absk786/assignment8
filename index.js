@@ -1,15 +1,11 @@
 // this will bring all the functions together 
 const fs = require('fs');
 const inquirer = require('inquirer');
-const Manager = require('./lib/Manager')
-const Intern = require('./lib/Intern')
-const Engineer = require('./lib/Engineer')
-const promptManager = require('./lib/Manager')
-const promptIntern = require('./lib/Intern')
-const promptEng = require('./lib/Engineer')
-
-// let teamInfo = []
-
+const {Manager,promptManager} = require('./lib/Manager')
+const {Engineer,promptEng} = require('./lib/Engineer')
+const {Intern,promptIntern} = require('./lib/Intern')
+const generatePage = require('./lib/createHTML')
+let teamInfo = []
 const promptUser = () => {
     return inquirer.prompt([
         {
@@ -20,13 +16,12 @@ const promptUser = () => {
         },
     ]);
 };
-
 function runApp  () {
     promptUser()
         .then(function (answers) {
             console.log(answers.Team)
             if (answers.Team === "Manager") {
-                console.log("intern selected")
+                console.log("manager selected")
                 promptManager()
                     .then(function (managerInfo) {
                         console.log(managerInfo)
@@ -42,6 +37,8 @@ function runApp  () {
                     .then(function (engInfo) {
                         console.log(engInfo)
                         const engineer = new Engineer(engInfo.engName, engInfo.engId, engInfo.engEmail, engInfo.engGitHub)
+                        teamInfo.push(engineer)
+                        console.log(teamInfo)
                         runApp ()
                     })
             }
@@ -51,21 +48,19 @@ function runApp  () {
                     .then(function (internInfo) {
                         console.log(internInfo)
                         const intern = new Intern(internInfo.internName, internInfo.internId, internInfo.internEmail, internInfo.internSchool)
+                        teamInfo.push(intern)
+                        console.log(teamInfo)
                         runApp ()
                     })
             }
             else if (answers.Team === "None") {
-                // fs.writeFile("Index.html", generatePage(empInfo, engInfo, managerInfo, internInfo), err =>{
-                // if (err) throw err
-                // console.log("HTML created")
-                // })
+                fs.writeFile("Index.html", generatePage(), err =>{
+                if (err) throw err
+                console.log("HTML created")
+                })
             }
-            console.log("start printing of HTML")
-            console.log(answers.Team[0])
         })
 }
 runApp ()
-// fs.writeFile("Index.html", generatePage(empInfo, engInfo, managerInfo, internInfo), err =>{
-// if (err) throw err
-// console.log("HTML created")
-// })
+
+module.exports = teamInfo;
