@@ -4,7 +4,8 @@ const inquirer = require('inquirer');
 const {Manager,promptManager} = require('./lib/Manager')
 const {Engineer,promptEng} = require('./lib/Engineer')
 const {Intern,promptIntern} = require('./lib/Intern')
-const generatePage = require('./lib/createHTML')
+const generateHTML = require('./src/index')
+const generateCard = require('./src/card')
 let teamInfo = []
 const promptUser = () => {
     return inquirer.prompt([
@@ -54,13 +55,25 @@ function runApp  () {
                     })
             }
             else if (answers.Team === "None") {
-                fs.writeFile("Index.html", generatePage(), err =>{
-                if (err) throw err
-                console.log("HTML created")
-                })
+                createTeam ()
+                // fs.writeFile("Index.html", generatePage(), err =>{
+                // if (err) throw err
+                // console.log("HTML created")
+                // })
             }
         })
 }
+
+
+function createTeam () {
+    var card = "";
+     for (var i = 0; i<teamInfo.length; i++) {
+          card += generateCard (teamInfo[i])
+    }
+    fs.writeFileSync("./output/index.html", generateHTML(card))
+}
+
+
 runApp ()
 
 module.exports = teamInfo;
