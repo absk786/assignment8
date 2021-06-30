@@ -4,7 +4,10 @@ var newField = '';
         newField = "office number: "+ team.getOfficeNumber()
      }
      if (team.getRole() === "Engineer") {
-        newField = "GitHub Link: "+ team.getGitHub()
+      
+      gitHubLink = "https://github.com/"
+      fullGitLink = gitHubLink+team.getGitHub()
+      newField = `<a href="${fullGitLink}">GitHub</a>`
      }
      if (team.getRole() === "Intern") {
         newField = "School: "+ team.getSchool()
@@ -20,7 +23,7 @@ var newField = '';
                     </div>
                     <ul class="list-group list-group-flush">
                       <li class="list-group-item">ID: ${team.getId()}</li>
-                      <li class="list-group-item">Email:${team.getEmail()}</li>
+                      <li class="list-group-item"><a href="mailto:${team.getEmail()}">email</a></li>
                       <li class="list-group-item"> ${newField}</li>
                     </ul>
                   </div>
