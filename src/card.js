@@ -7,7 +7,7 @@ var newField = '';
       
       gitHubLink = "https://github.com/"
       fullGitLink = gitHubLink+team.getGitHub()
-      newField = `<a href="${fullGitLink}">GitHub</a>`
+      newField = `<a href="${fullGitLink}" target="_blank">GitHub</a>`
      }
      if (team.getRole() === "Intern") {
         newField = "School: "+ team.getSchool()
@@ -23,7 +23,7 @@ var newField = '';
                     </div>
                     <ul class="list-group list-group-flush">
                       <li class="list-group-item">ID: ${team.getId()}</li>
-                      <li class="list-group-item"><a href="mailto:${team.getEmail()}">email</a></li>
+                      <li class="list-group-item"><a href="mailto:${team.getEmail()}" target="_blank">email</a></li>
                       <li class="list-group-item"> ${newField}</li>
                     </ul>
                   </div>
