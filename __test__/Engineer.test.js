@@ -1,10 +1,11 @@
 const { test, expect } = require('@jest/globals')
-const Manager = require('../lib/Manager')
+const {Engineer} = require('../lib/Engineer')
 
-test ("creates an employee objec", () => {
+test ("creates an engineer objec", () => {
     const number = parseInt(5)
-    const manager = new Manager("testName",number,"test@test.com")
-    expect(manager.name).toBe("testName")
-    expect(manager.id).toEqual(expect.any(Number))
-    expect(manager.email).toBe("test@test.com")
+    const engineer = new Engineer("testName",number,"test@test.com","gitHubUser")
+    expect(engineer.name).toBe("testName")
+    expect(engineer.id).toEqual(expect.any(Number))
+    expect(engineer.email).toBe("test@test.com")
+    expect(engineer.gitHub).toBe("gitHubUser")
 })
