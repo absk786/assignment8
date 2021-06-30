@@ -4,7 +4,7 @@ var newField = '';
         newField = "office number: "+ team.getOfficeNumber()
      }
      if (team.getRole() === "Engineer") {
-        newField = "GitHub Lin: "+ team.getGitHub()
+        newField = "GitHub Link: "+ team.getGitHub()
      }
      if (team.getRole() === "Intern") {
         newField = "School: "+ team.getSchool()
@@ -24,11 +24,7 @@ var newField = '';
                       <li class="list-group-item"> ${newField}</li>
                     </ul>
                   </div>
-                  
               </div>
-    
-    
-    
     
     `
 }

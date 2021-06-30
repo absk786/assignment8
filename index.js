@@ -56,14 +56,9 @@ function runApp  () {
             }
             else if (answers.Team === "None") {
                 createTeam ()
-                // fs.writeFile("Index.html", generatePage(), err =>{
-                // if (err) throw err
-                // console.log("HTML created")
-                // })
             }
         })
 }
-
 
 function createTeam () {
     var card = "";
@@ -72,8 +67,6 @@ function createTeam () {
     }
     fs.writeFileSync("./output/index.html", generateHTML(card))
 }
-
-
 runApp ()
 
 module.exports = teamInfo;
